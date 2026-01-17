@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"math/rand"
-	"time"
 )
 
 // Hello 为指定的人返回问候语.
@@ -17,8 +16,7 @@ func Hello(name string) (string, error) {
 	// 如果接收到名称，则返回一个嵌入名称的值
 	// 在问候消息中.
 	// message := fmt.Sprintf("Hi, %v. Welcome!", name)
-	// message := fmt.Sprintf(randomFormat(), name)
-	message := fmt.Sprint(randomFormat())
+	message := fmt.Sprintf(randomFormat(), name)
 	return message, nil
 }
 
@@ -29,6 +27,7 @@ func Hellos(names []string) (map[string]string, error) {
 	messages := make(map[string]string)
 	// 遍历接收到的名称切片，调用
 	// Hello 函数为每个名字获取一条消息.
+	// 使用 Go 空白标识符（下划线）来忽略
 	for _, name := range names {
 		message, err := Hello(name)
 		if err != nil {
@@ -42,7 +41,7 @@ func Hellos(names []string) (map[string]string, error) {
 }
 
 // init 为函数中使用的变量设置初始值.
-func init() {
+/* func init() {
 	// 获取当前时间的纳秒数作为种子
 	seed := time.Now().UnixNano()
 	// 创建一个新的随机数生成器
@@ -51,7 +50,7 @@ func init() {
 	// 使用新的随机数生成器生成随机数
 	randomNumber := r.Intn(100)
 	fmt.Println(randomNumber)
-}
+} */
 
 // randomFormat 返回一组问候消息中的一个。返回的
 // 消息是随机选择的.
@@ -64,6 +63,7 @@ func randomFormat() string {
 	}
 
 	// 通过为格式切片指定随机索引
+	// rand.Intn(n) 是 Go 语言 rand 包中的函数，它会返回一个介于 0（包括）和 n（不包括）之间的伪随机整数。
 	// 来返回随机选择的消息格式.
 	return formats[rand.Intn(len(formats))]
 }
