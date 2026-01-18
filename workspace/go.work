@@ -1,0 +1,14 @@
+go 1.25.5
+
+use (
+	./hello
+	./stringutil
+)
+
+// go run example.com/hello
+
+// Go 命令在 go.work文件指定的 hello 目录中查找命令行中指定的example.com/hello 模块，并同样使用 go.work 文件解析 example.com/stringutil 导入。
+
+// 可以使用 go.work，而不是添加replace指令来跨多个模块工作。
+
+// 由于这两个模块在同一个工作区中，因此很容易在一个模块中进行更改并在另一个模块中使用它。
