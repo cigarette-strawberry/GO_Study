@@ -31,5 +31,9 @@ func main() {
 		binding.POST("/bindQueryOrPost", BindQueryOrPost)
 	}
 
+	{
+		binding.POST("/bindDefaultValues", BindDefaultValues)
+	}
+
 	router.Run(":8080")
 }
