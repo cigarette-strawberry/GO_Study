@@ -23,5 +23,9 @@ func main() {
 		binding.GET("/onlyBindQueryString", OnlyBindQueryString)
 	}
 
+	{
+		router.POST("/binding", Binding)
+	}
+
 	router.Run(":8080")
 }
