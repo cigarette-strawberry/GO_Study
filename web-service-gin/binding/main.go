@@ -35,5 +35,9 @@ func main() {
 		binding.POST("/bindDefaultValues", BindDefaultValues)
 	}
 
+	{
+		binding.GET("/collectionFormatForArrays", CollectionFormatForArrays)
+	}
+
 	router.Run(":8080")
 }
