@@ -43,5 +43,9 @@ func main() {
 		binding.GET("/bindUri/:name/:id/:email", BindUri)
 	}
 
+	{
+		binding.GET("/bindCustomUnmarshaler", BindCustomUnmarshaler)
+	}
+
 	router.Run(":8080")
 }
