@@ -61,5 +61,12 @@ func main() {
 		binding.POST("/multipartUrlencodedBinding", MultipartUrlencodedBinding)
 	}
 
+	{
+		bindFormDataRequestWithCustomStruct := binding.Group("/bindFormDataRequestWithCustomStruct")
+		bindFormDataRequestWithCustomStruct.GET("/getb", GetB)
+		bindFormDataRequestWithCustomStruct.GET("/getc", GetC)
+		bindFormDataRequestWithCustomStruct.GET("/getd", GetD)
+	}
+
 	router.Run(":8080")
 }
