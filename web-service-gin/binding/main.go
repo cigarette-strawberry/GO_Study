@@ -68,5 +68,9 @@ func main() {
 		bindFormDataRequestWithCustomStruct.GET("/getd", GetD)
 	}
 
+	{
+		binding.POST("/bindBodyIntoDifferentStructs", BindBodyIntoDifferentStructs)
+	}
+
 	router.Run(":8080")
 }
