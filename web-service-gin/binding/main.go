@@ -57,5 +57,9 @@ func main() {
 		binding.POST("/bindHtmlCheckbox", BindHtmlCheckbox)
 	}
 
+	{
+		binding.POST("/multipartUrlencodedBinding", MultipartUrlencodedBinding)
+	}
+
 	router.Run(":8080")
 }
