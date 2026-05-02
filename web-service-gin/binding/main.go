@@ -72,5 +72,9 @@ func main() {
 		binding.POST("/bindBodyIntoDifferentStructs", BindBodyIntoDifferentStructs)
 	}
 
+	{
+		binding.GET("/bindFormDataCustomStructTag", BindFormDataCustomStructTag)
+	}
+
 	router.Run(":8080")
 }
