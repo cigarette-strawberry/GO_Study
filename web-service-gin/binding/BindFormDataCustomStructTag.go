@@ -12,7 +12,8 @@ import (
 
 	当集成第三方库时，如果其结构体使用 url、query 或其他自定义名称而非 form 标签，这将非常有用。
 
-	自定义绑定实现了 binding.Binding 接口，该接口需要一个 Name() string 方法和一个 Bind(*http.Request, any) error 方法。binding.MapFormWithTag 辅助函数完成了使用自定义标签将表单值映射到结构体字段的实际工作。
+	自定义绑定实现了 binding.Binding 接口，该接口需要一个 Name() string 方法和一个 Bind(*http.Request, any) error 方法。
+	binding.MapFormWithTag 辅助函数完成了使用自定义标签将表单值映射到结构体字段的实际工作。
 */
 
 /*

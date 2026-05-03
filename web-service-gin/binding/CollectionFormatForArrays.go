@@ -14,6 +14,10 @@ import (
 	ssv：空格分隔的值
 	tsv：制表符分隔的值
 	pipes：管道符分隔的值
+
+	在 form 标签中使用 default 来设置回退值。
+	对于 multi 和 csv，使用分号分隔默认值：default=1;2;3。
+	对于 ssv、tsv 和 pipes，在默认值中使用自然分隔符。
 */
 
 type Filters struct {

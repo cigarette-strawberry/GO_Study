@@ -7,7 +7,11 @@ import (
 )
 
 /*
-ShouldBindQuery 仅将 URL 查询字符串参数绑定到结构体，完全忽略请求体。当你需要确保 POST 请求体数据不会意外覆盖查询参数时——例如在同时接受查询过滤器和 JSON 请求体的端点中——这将非常有用
+	ShouldBindQuery 仅将 URL 查询字符串参数绑定到结构体，完全忽略请求体。
+	当你需要确保 POST 请求体数据不会意外覆盖查询参数时——例如在同时接受查询过滤器和 JSON 请求体的端点中——这将非常有用
+
+	相比之下，ShouldBind 在 GET 请求中也使用查询绑定，但在 POST 请求中它会首先检查请求体。
+	当你明确需要仅绑定查询字符串而不考虑 HTTP 方法时，请使用 ShouldBindQuery。
 */
 
 type Person struct {

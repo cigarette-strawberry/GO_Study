@@ -16,6 +16,10 @@ import (
 		行为 - 这些方法底层使用 ShouldBindWith。如果存在绑定错误，错误会被返回，由开发者负责适当地处理请求和错误。
 
 	使用 Bind 方法时，Gin 会尝试根据 Content-Type 头来推断绑定器。如果你确定要绑定的内容类型，可以使用 MustBindWith 或 ShouldBindWith。
+
+	你还可以指定特定字段为必填。如果一个字段标记了 binding:"required" 并且在绑定时值为空，将返回错误。
+	如果结构体的某个字段本身也是结构体（嵌套结构体），该结构体的字段也需要标记 binding:"required" 才能正确验证
+
 */
 
 type Login struct {

@@ -8,11 +8,14 @@ import (
 )
 
 /*
-	标准的绑定方法如 c.ShouldBind 会消费 c.Request.Body，它是一个 io.ReadCloser——一旦读取后就无法再次读取。这意味着你不能对同一个请求多次调用 c.ShouldBind 来尝试不同的结构体。
+	标准的绑定方法如 c.ShouldBind 会消费 c.Request.Body，它是一个 io.ReadCloser——一旦读取后就无法再次读取。
+	这意味着你不能对同一个请求多次调用 c.ShouldBind 来尝试不同的结构体。
 
 	要解决这个问题，请使用 c.ShouldBindBodyWith。它会读取一次请求体并将其存储在上下文中，允许后续的绑定重用缓存的请求体。
 
-	c.ShouldBindBodyWith 在绑定之前会将请求体存储到上下文中。这会对性能产生轻微影响，因此仅在需要多次绑定请求体时使用。对于不读取请求体的格式——如 Query、Form、FormPost、FormMultipart——你可以多次调用 c.ShouldBind() 而不会有任何问题。
+	c.ShouldBindBodyWith 在绑定之前会将请求体存储到上下文中。
+	这会对性能产生轻微影响，因此仅在需要多次绑定请求体时使用。
+	对于不读取请求体的格式——如 Query、Form、FormPost、FormMultipart——你可以多次调用 c.ShouldBind() 而不会有任何问题。
 */
 
 type formA struct {

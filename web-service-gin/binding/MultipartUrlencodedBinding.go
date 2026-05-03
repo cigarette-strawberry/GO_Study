@@ -7,6 +7,9 @@ import (
 )
 
 /*
+	ShouldBind 会自动检测 Content-Type，并将 multipart/form-data 或 application/x-www-form-urlencoded 请求体绑定到结构体中。
+	使用 form 结构体标签将表单字段名映射到结构体字段，使用 binding:"required" 来强制必填字段。
+
 	ShouldBind 会自动检测 Content-Type，并将 multipart/form-data 或 application/x-www-form-urlencoded 请求体绑定到结构体中。使用 form 结构体标签将表单字段名映射到结构体字段，使用 binding:"required" 来强制必填字段
 */
 
