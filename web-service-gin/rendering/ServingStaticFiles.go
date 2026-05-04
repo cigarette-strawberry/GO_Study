@@ -33,8 +33,7 @@ router.StaticFile(relativePath, filePath) — 提供单个文件。
 
 func ServingStaticFiles(c *gin.Context) {
 	router := gin.Default()
-
-	router.Static("/assets", "./assets")
-	router.StaticFS("/more_static", http.Dir("my_file_system"))
-	router.StaticFile("/favicon.ico", "./resources/favicon.ico")
+	router.Static("/static", "./static")
+	router.StaticFS("/static", http.Dir("static"))
+	router.StaticFile("/static/text.txt", "./static/text.txt")
 }

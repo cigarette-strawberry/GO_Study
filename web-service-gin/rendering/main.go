@@ -1,6 +1,8 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
 	router := gin.Default()
@@ -27,6 +29,9 @@ func main() {
 
 	{
 		rendering.GET("/servingStaticFiles", ServingStaticFiles)
+		// router.Static("/static", "./static")
+		// router.StaticFS("/static", http.Dir("static"))
+		// router.StaticFile("/static/text.txt", "./static/text.txt")
 	}
 
 	{
