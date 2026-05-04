@@ -14,5 +14,11 @@ func main() {
 		rendering.GET("/someProtoBuf", SomeProtoBuf)
 	}
 
+	{
+		// You can also use your own secure json prefix
+		// router.SecureJsonPrefix(")]}',\n")
+		rendering.GET("/secureJson", SecureJson)
+	}
+
 	router.Run(":8080")
 }
