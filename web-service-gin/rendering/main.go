@@ -29,5 +29,11 @@ func main() {
 		rendering.GET("/servingStaticFiles", ServingStaticFiles)
 	}
 
+	{
+		rendering.GET("/local/file", LocalFile)
+		rendering.GET("/fs/file", FsFile)
+		rendering.GET("/download", Download)
+	}
+
 	router.Run(":8080")
 }
