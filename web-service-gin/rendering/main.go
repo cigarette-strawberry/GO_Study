@@ -25,5 +25,9 @@ func main() {
 		rendering.GET("/purejson", PureJson)
 	}
 
+	{
+		rendering.GET("/servingStaticFiles", ServingStaticFiles)
+	}
+
 	router.Run(":8080")
 }
