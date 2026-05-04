@@ -52,5 +52,10 @@ func main() {
 		// rendering.GET("/posts/index", PostsIndex)
 	}
 
+	{
+		router.HTMLRender = createMyRender()
+		rendering.GET("/multipleTemplate", MultipleTemplate)
+	}
+
 	router.Run(":8080")
 }
