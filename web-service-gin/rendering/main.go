@@ -1,4 +1,4 @@
-package rendering
+package main
 
 import "github.com/gin-gonic/gin"
 
@@ -8,7 +8,10 @@ func main() {
 	rendering := router.Group("/rendering")
 
 	{
-		rendering.POST("/", Rendering)
+		rendering.GET("/someJSON", SomeJSON)
+		rendering.GET("/someXML", SomeXML)
+		rendering.GET("/someYAML", SomeYAML)
+		rendering.GET("/someProtoBuf", SomeProtoBuf)
 	}
 
 	router.Run(":8080")
