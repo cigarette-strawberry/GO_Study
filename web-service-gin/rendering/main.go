@@ -40,5 +40,9 @@ func main() {
 		rendering.GET("/download", Download)
 	}
 
+	{
+		rendering.GET("/servingDataFromReader", ServingDataFromReader)
+	}
+
 	router.Run(":8080")
 }
