@@ -46,6 +46,7 @@ func Logger() gin.HandlerFunc {
 }
 
 func CustomMiddleware(c *gin.Context) {
+	// c.MustGet 用于从请求上下文 c 中获取一个之前设置的值，并且在值不存在时会使程序 panic。
 	example := c.MustGet("example").(string)
 
 	// it would print: "12345"

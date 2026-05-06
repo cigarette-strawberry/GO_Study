@@ -31,5 +31,17 @@ func main() {
 		middleware.GET("/errorHandlingMiddleware", ErrorHandlingMiddleware)
 	}
 
+	// 使用 gin.BasicAuth() 中间件进行分组
+	// gin.Accounts 是一个用于表示 map[string]string 的简写形式
+	authorized := router.Group("/basicauth", gin.BasicAuth(gin.Accounts{
+		"foo":    "bar",
+		"austin": "1234",
+		"lena":   "hello2",
+		"manu":   "4321",
+	}))
+	{
+		authorized.GET("/usingBasicauthMiddleware", UsingBasicauthMiddleware)
+	}
+
 	router.Run(":8080")
 }
