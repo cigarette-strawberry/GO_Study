@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
-	"time"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 func main() {
+	r := gin.New()
+
 	// 禁用控制台颜色，当将日志写入文件时，您无需使用控制台颜色。
 	gin.DisableConsoleColor()
 
@@ -19,24 +20,36 @@ func main() {
 	// 如果您需要同时将日志写入文件和控制台，请使用以下代码。
 	// gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
 
-	gin.DefaultWriter = &lumberjack.Logger{
+	// 追加到现有日志
+	/* gin.DefaultWriter = &lumberjack.Logger{
 		Filename:   "gin.log",
 		MaxSize:    100, // 兆字节
 		MaxBackups: 3,
 		MaxAge:     28, // days
-	}
+	} */
 
 	// r := gin.Default()
 
 	/* ------------------------------------上下分隔------------------------------------ */
 
-	r := gin.New()
+	// 通过在“日志配置”中设置“跳过路径”选项，可对指定路径的日志记录进行跳过处理。
+	loggerConfig := gin.LoggerConfig{SkipPaths: []string{"/writeLog", "/customLogFormat"}}
+
+	// 通过在 LoggerConfig 中设置 Skip 函数，您可以根据自己的逻辑跳过日志记录。
+	loggerConfig.Skip = func(c *gin.Context) bool {
+		// 例如，忽略非服务器端错误
+		return c.Writer.Status() < http.StatusInternalServerError
+	}
+
+	r.Use(gin.LoggerWithConfig(loggerConfig))
+
+	/* ------------------------------------上下分隔------------------------------------ */
 
 	r.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
-		// your custom format
+		// 您的自定义格式
 		return fmt.Sprintf("%s - [%s] \"%s %s %s %d %s \"%s\" %s\"\n",
 			param.ClientIP,
-			param.TimeStamp.Format(time.RFC1123),
+			param.TimeStamp.Format("2006-01-02 15:04:05"),
 			param.Method,
 			param.Path,
 			param.Request.Proto,
@@ -46,7 +59,10 @@ func main() {
 			param.ErrorMessage,
 		)
 	}))
+
 	r.Use(gin.Recovery())
+
+	/* ------------------------------------上下分隔------------------------------------ */
 
 	logging := r.Group("/logging")
 
@@ -56,6 +72,10 @@ func main() {
 
 	{
 		logging.GET("/customLogFormat", CustomLogFormat)
+	}
+
+	{
+		logging.GET("/skipLogging", SkipLogging)
 	}
 
 	r.Run(":8080")
