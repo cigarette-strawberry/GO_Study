@@ -11,7 +11,8 @@ func main() {
 	r := gin.New()
 
 	// 禁用控制台颜色，当将日志写入文件时，您无需使用控制台颜色。
-	gin.DisableConsoleColor()
+	// gin.DisableConsoleColor() // 禁用日志着色
+	gin.ForceConsoleColor() // 启用日志着色
 
 	// 将日志记录到文件中。
 	// f, _ := os.Create("gin.log")
@@ -76,6 +77,10 @@ func main() {
 
 	{
 		logging.GET("/skipLogging", SkipLogging)
+	}
+
+	{
+		logging.GET("/controllingLogOutputColoring", ControllingLogOutputColoring)
 	}
 
 	r.Run(":8080")
