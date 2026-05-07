@@ -43,5 +43,9 @@ func main() {
 		authorized.GET("/usingBasicauthMiddleware", UsingBasicauthMiddleware)
 	}
 
+	{
+		middleware.GET("/goroutinesInsideAMiddleware", GoroutinesInsideAMiddleware)
+	}
+
 	router.Run(":8080")
 }
