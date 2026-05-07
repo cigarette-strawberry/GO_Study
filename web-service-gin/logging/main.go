@@ -29,12 +29,10 @@ func main() {
 		MaxAge:     28, // days
 	} */
 
-	// r := gin.Default()
-
 	/* ------------------------------------上下分隔------------------------------------ */
 
 	// 通过在“日志配置”中设置“跳过路径”选项，可对指定路径的日志记录进行跳过处理。
-	loggerConfig := gin.LoggerConfig{SkipPaths: []string{"/writeLog", "/customLogFormat"}}
+	loggerConfig := gin.LoggerConfig{SkipPaths: []string{"/writeLog", "/customLogFormat"}, SkipQueryString: true}
 
 	// 通过在 LoggerConfig 中设置 Skip 函数，您可以根据自己的逻辑跳过日志记录。
 	loggerConfig.Skip = func(c *gin.Context) bool {
@@ -61,6 +59,7 @@ func main() {
 		)
 	}))
 
+	// r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
 	/* ------------------------------------上下分隔------------------------------------ */
@@ -81,6 +80,10 @@ func main() {
 
 	{
 		logging.GET("/controllingLogOutputColoring", ControllingLogOutputColoring)
+	}
+
+	{
+		logging.GET("/avoidLoggingQueryStrings", AvoidLoggingQueryStrings)
 	}
 
 	r.Run(":8080")

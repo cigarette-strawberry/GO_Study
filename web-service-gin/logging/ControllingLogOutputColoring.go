@@ -13,7 +13,7 @@ import (
 		gin.DisableConsoleColor() // 禁用日志着色
 		gin.ForceConsoleColor() // 启用日志着色
 
-		日志上色 不能使用 自定日志
+		日志上色 不能使用 自定义日志
 */
 
 func ControllingLogOutputColoring(c *gin.Context) {
