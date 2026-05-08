@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"net/http"
 	"time"
 
@@ -50,6 +51,12 @@ func main() {
 
 	// 限流
 	router.Use(RateLimiter())
+
+	db, err := sql.Open("postgres", "postgres://user:pass@localhost/dbname?sslmode=disable")
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
 
 	middleware := router.Group("/middleware")
 
@@ -111,11 +118,16 @@ func main() {
 	{
 		middleware.GET("/securityGuide", SecurityGuide)
 	}
+
 	sessionManagement := middleware.Group("/sessionManagement")
 	{
 		sessionManagement.GET("/login", Login)
 		sessionManagement.GET("/profile", Profile)
 		sessionManagement.GET("/logout", Logout)
+	}
+
+	{
+		middleware.GET("/dependencyInjection", DependencyInjection)
 	}
 
 	router.Run(":8080")
