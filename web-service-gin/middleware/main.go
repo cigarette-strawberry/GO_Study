@@ -36,7 +36,7 @@ func main() {
 
 	// CSRF
 	// 这行代码创建了一个基于 Cookie 的会话存储。cookie.NewStore 函数接受一个字节切片作为密钥，用于加密和解密存储在 Cookie 中的会话数据
-	store := cookie.NewStore([]byte("session-secret"))
+	store := cookie.NewStore([]byte("cigarette"))
 	// 这里将刚刚创建的会话存储与名为 "mysession" 的会话关联起来，并将这个会话中间件应用到整个 Gin 路由器 router 上。每个请求经过这个中间件时，都会初始化或恢复与 "mysession" 相关的会话
 	router.Use(sessions.Sessions("mysession", store))
 
@@ -110,6 +110,12 @@ func main() {
 
 	{
 		middleware.GET("/securityGuide", SecurityGuide)
+	}
+	sessionManagement := middleware.Group("/sessionManagement")
+	{
+		sessionManagement.GET("/login", Login)
+		sessionManagement.GET("/profile", Profile)
+		sessionManagement.GET("/logout", Logout)
 	}
 
 	router.Run(":8080")
