@@ -2,10 +2,14 @@ package main
 
 import (
 	"fmt"
-	"log"
+	"log/slog"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/rs/zerolog"
+
+	"github.com/rs/zerolog/log"
 )
 
 func main() {
@@ -73,6 +77,21 @@ func main() {
 
 	/* ------------------------------------上下分隔------------------------------------ */
 
+	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	r.Use(RequestIDMiddleware())
+	r.Use(SlogMiddleware(logger))
+
+	/* ------------------------------------上下分隔------------------------------------ */
+
+	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
+	// 用于开发的精美日志记录功能
+	if gin.Mode() == gin.DebugMode {
+		log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
+	}
+	r.Use(ZerologMiddleware())
+
+	/* ------------------------------------上下分隔------------------------------------ */
+
 	logging := r.Group("/logging")
 
 	{
@@ -93,6 +112,10 @@ func main() {
 
 	{
 		logging.GET("/avoidLoggingQueryStrings", AvoidLoggingQueryStrings)
+	}
+
+	{
+		logging.GET("/structuredLogging", StructuredLogging)
 	}
 
 	r.Run(":8080")
